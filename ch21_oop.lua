@@ -95,6 +95,9 @@ function NewAccount2(initialBalance)
     local getBalance = function ()
         return self.balance + extra()
     end
+    return {
+        getBalance = getBalance
+    }
 end
 local account5 = NewAccount2(20)
 print(account5:getBalance())
@@ -111,3 +114,23 @@ local d = NewObject(10)
 print(d("get"))
 d("set", 100)
 print(d("get"))
+
+-- dual representation
+local balanceTable = {}
+Account6 = {}
+function Account6:new(o)
+    o = o or {}
+    setmetatable(o, self)
+    self.__index = self
+    balanceTable[o] = 100
+    return o
+end
+function Account6:withdraw(v)
+    balanceTable[self] = balanceTable[self] - v
+end
+function Account6:balance()
+    return balanceTable[self]
+end
+local account6 = Account6:new()
+account6:withdraw(10)
+print(account6:balance())
