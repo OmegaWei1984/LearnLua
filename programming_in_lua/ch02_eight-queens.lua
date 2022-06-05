@@ -34,4 +34,37 @@ local function addqueen(a, n)
     end
 end
 
-addqueen({}, 1)
+-- addqueen({}, 1)
+
+-- Exercise
+-- 2.2
+-- https://www.cnblogs.com/zoey-liao/p/12271166.html
+local function addqueen_(arr, a, n)
+    if n > N then
+        table.insert(arr, a)
+    else
+        for c = 1, N do
+            local tmp = {}
+            for k, v in pairs(a) do
+                tmp[k] = v
+            end
+            tmp[n] = c
+            addqueen_(arr, tmp, n + 1)
+        end
+    end
+end
+
+local posibles = {}
+addqueen_(posibles, {}, 1)
+for _, v in pairs(posibles) do
+    local isok = true
+    for i = 1, N do
+        isok = isplaceok(v, i, v[i])
+        if not isok then
+            break
+        end
+    end
+    if isok then
+        printsolution(v)
+    end
+end
