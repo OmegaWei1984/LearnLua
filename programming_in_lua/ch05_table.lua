@@ -42,3 +42,37 @@ table.insert(d, 5)
 table.remove(d, 5)
 table.remove(d, 5)
 table.move(d, 1, 1, 2)
+
+-- Exercise
+-- 5.1
+local sunday = "monday"
+local monday = "sunday"
+local t = {
+    sunday = "monday",
+    [sunday] = "monday",
+}
+print(t.sunday, t[sunday], t[t.sunday])
+
+-- 5.4
+local function polynomial(constants, variables)
+    local sum = 0
+    for i = 1, #constants do
+        sum = sum + constants[i] * (variables ^ (i - 1))
+    end
+    return sum
+end
+local aSeq = {0, 1, 0, 1}
+assert(polynomial(aSeq, 16) == 0x1010)
+
+-- 5.7
+local function tbaleInsert(table1, table2, pos)
+    for i = 1, #table2 do
+        table.insert(table1, pos + i - 1, table2[i])
+    end
+end
+local t1 = {1, 2, 3}
+local t2 = {4, 5}
+tbaleInsert(t1, t2, 2)
+for index, value in ipairs(t1) do
+    print(value)
+end
