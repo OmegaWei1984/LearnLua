@@ -20,3 +20,11 @@ local function add(...)
     end
     return sum
 end
+assert(add(1, 3, 5, 7) == 16)
+print(table.unpack{10, 20, 30})
+local v1, v2 = table.unpack{10, 20, 30}
+assert((v1 == 10) and (v2 == 20))
+print(string.find("hello", "ll"))
+local funcStrFind = string.find
+local params = {"hello", "ll"}
+assert(funcStrFind(table.unpack(params)) == string.find("hello", "ll"))
